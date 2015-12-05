@@ -28,7 +28,7 @@ module Jekyll
     end
 
     def render(context)
-      args       = @text.split(/\s+/).map(&:strip)
+      args       = context['tweet'].split(/\s+/).map(&:strip)
       api_params = {'url' => args.shift}
 
       args.each do |arg|
