@@ -12,6 +12,7 @@
 #   https://github.com/scottwb/jekyll-tweet-tag/blob/master/README.md
 #
 require 'json'
+require 'net/http'
 
 module Jekyll
   class TweetTag < Liquid::Tag
@@ -77,9 +78,14 @@ module Jekyll
 
     def live_response(api_params)
       api_uri = URI.parse(TWITTER_OEMBED_URL + "?#{url_params_for(api_params)}")
-      response = Net::HTTP.get(api_uri.host, api_uri.request_uri)
-      cache(api_params, response) unless @cache_disabled
-      JSON.parse(response)
+      http = Net::HTTP.new(api_uri.host, api_uri.port)
+      http.use_ssl = true
+      request = Net::HTTP::Get.new(api_uri.request_uri)
+      response = http.request(request)
+
+      return unless response.class <= Net::HTTPSuccess
+      cache(api_params, response.body) unless @cache_disabled
+      JSON.parse(response.body)
     end
   end
 
