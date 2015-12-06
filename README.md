@@ -16,10 +16,6 @@ Place a `titled_link` tag in your content file, along with the URL, e.g.:
 {% titled_link https://github.com %}
 ```
 
-The first argument to the `tweet` tag must be the tweet URL, but everything after that is optional. You can pass
-any parameter supported by the [Twitter oEmbed API](https://dev.twitter.com/docs/api/1/get/statuses/oembed) in the form
-`key='value'`.
-
 # Caching
 
 To avoid downloading every linked page on rebuild, we cache the titles in a directory named `.link-cache`. It will never update after the initial check, but you can safely delete `.link-cache` to recreate it on next load, and refresh all link titles.
