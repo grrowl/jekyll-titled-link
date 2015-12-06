@@ -64,7 +64,7 @@ module Jekyll
     def live_response(uri)
       uri = URI(uri)
       response = nil
-      puts "Fetching title of %s"% uri
+      Jekyll.logger.info "Fetching title of %s"% uri
 
       begin
         Net::HTTP.start(uri.host, uri.port,
@@ -77,9 +77,9 @@ module Jekyll
           response = http.request request # Net::HTTPResponse object
         end
       rescue TimeoutError
-        puts "! Timeout fetching %s"% uri.host
+        Jekyll.logger.error "! Timeout fetching %s"% uri.host
       rescue
-        puts "! Error fetching %s: %s"% [uri.host, $!, $!.class]
+        Jekyll.logger.error "! Error fetching %s: %s"% [uri.host, $!, $!.class]
       end
 
       return unless response.class <= Net::HTTPSuccess
