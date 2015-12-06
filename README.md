@@ -1,4 +1,4 @@
-# Titled Tag plugin for Jekyll
+# Titled Link tag plugin for Jekyll
 
 This plugin enables a Liquid tag which will automatically create links using the source location's title attribute. For example, a link to `https://github.com/` will display the text "GitHub · Where software is built".
 
